@@ -15,13 +15,6 @@ class PhoneCollection extends Resource
      */
     public function toArray($request)
     {
-        // $del = array();
-        // for($i=0;$i<sizeof($this->collection);$i++){
-        //     array_push($del,'id:'.$this[$i]->id);
-        //     array_push($del,'mobile:'.$this[$i]->mobile);
-        //     array_push($del,'foreign_key:'.$this[$i]->st_id);
-        //     array_push($del,'delete at :'.$this[$i]->deleted_at);
-        // }
 
         return[
             'id'=>$this->id,
