@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Input;
 
 use App\Http\Controllers\PrintController;
+use App\Http\Resources\PhoneCollection;
+use App\Http\Resources\PhoneResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +28,15 @@ use App\Http\Controllers\PrintController;
 // Route::get('conn',"connection@index");
 
 // Route with Resource Controller
-Route::resource('phonebook', 'CRUDController');
+// Route::resource('phonebook', 'CRUDController');
 
 // Route::get('insertdata', 'CRUDController@display');
 
 // Route::post('add','CRUDController@store');
+
+// Route::get('phonedelete',function(){
+//     return PhoneResource::collection(Phone::all());
+// });
+
+
+

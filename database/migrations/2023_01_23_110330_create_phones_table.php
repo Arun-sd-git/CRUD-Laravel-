@@ -19,7 +19,6 @@ class CreatePhonesTable extends Migration
             $table->unsignedInteger('st_id');
             $table->foreign('st_id')->references('id')->on('students');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

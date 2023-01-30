@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
 use App\Student;
+use App\Http\Resources\PhoneResource;
+use App\Http\Resources\PhoneCollection;
 use App\Phone;
 use finfo;
 use Illuminate\Http\Request;
@@ -70,11 +72,17 @@ class CRUDController extends Controller
      */
     public function index()
     {
+        $articles = Phone::onlyTrashed()->get();
+        // for($i=0;$i<sizeof($articles);$i++)
+        // echo($articles[$i]);
+        // return PhoneResource::collection($articles);
+        return PhoneCollection::collection($articles);
 
-        $phone = Phone::with('student')->get();
-        $students = Student::paginate(20);
-        // dd($phone);
-        return view('crud.index', compact('students', 'phone'))->with('Phone', $phone);
+//  _______________________________________________
+        // $phone = Phone::with('student')->get();
+        // $students = Student::paginate(20);
+        // // dd($phone);
+        // return view('crud.index', compact('students', 'phone'))->with('Phone', $phone);
 
 
         // $phone = new Phone();
@@ -166,12 +174,18 @@ class CRUDController extends Controller
     public function destroy($id)
     {
 
-        $user = Student::find($id)->delete();
-        $user->phones()->delete();
-        $user->delete();
+        $var = Phone::with('students')->where('st_id',$id)->get();
+
+        for($i=0;$i<sizeof($var);$i++)
+        $var[$i]->delete();
+        
+
+        // $user = Student::where('id', $id)->firstorfail()->delete();
+        // $user->phones()->delete();
+        // $user->delete();
         // $phone = Phone::;
         // $student = new Student();
-        $phone = Phone::with('student')->where('st_id',$id)->withTrashed()->get();
+        // $phone = Phone::with('student')->where('st_id', $id)->withTrashed()->get();
         // $student->foreign('id')->references('st_id')->on('phones')->onDelete('cascade');
         return back()->with('message', 'Contact Deleted Successfull !');
     }
